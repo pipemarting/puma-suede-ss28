@@ -49,6 +49,21 @@ Otros eventos enviados por gtag:
 | `menu_open` | Apertura del menú |
 | `consent_choice` | Respuesta al banner de cookies |
 
+## Verificación (14 oct 2026)
+
+- [x] Aparecen usuarios en Tiempo real
+- [x] Aparece el evento `clic_cta_principal` (con `ubicacion` = `inicio` / `comprar`)
+- [x] El ID de medición del sitio (`G-111X5MEFQZ`) coincide con el de la propiedad
+- [x] `clic_cta_principal` marcado como evento clave
+- [x] Dimensión personalizada **Ubicación CTA** (parámetro `ubicacion`, alcance evento)
+
+La visita de prueba técnica llegó con `utm_source=prueba_tecnica`; exclúyela al analizar.
+Los bloqueadores de anuncios impiden el envío de datos: prueba desde el teléfono o una ventana sin extensiones.
+
+## Difusión
+
+Comparte siempre los enlaces con UTM de [`docs/difusion-utm.md`](docs/difusion-utm.md) y anota cada envío en su registro.
+
 Para depurar, abre el sitio con `?debug` y revisa la consola o GA4 › DebugView.
 
 ---
