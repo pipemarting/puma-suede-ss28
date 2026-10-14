@@ -14,29 +14,40 @@ Lograr que la Puma Suede SS28 supere en un 5 % la cuota de mercado de su compete
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | Landing autocontenida (imágenes incrustadas). Basada en el wireframe de `docs/wireframe.jpeg`. |
-| `docs/gtm-contenedor-puma-suede.json` | Contenedor de Google Tag Manager importable (GA4 + eventos + ecommerce). |
+| `index.html` | Landing autocontenida (imágenes incrustadas), basada en el wireframe de `docs/wireframe.jpeg`. |
+| `docs/difusion-utm.md` | Enlaces UTM por canal y registro de difusión. |
 
-## Medición
+## Modelo de medición
 
-- **Google Tag Manager:** `GTM-K4DSS8Q3`, instalado en `<head>` y `<noscript>` tras `<body>`.
-- **Consent Mode v2:** todo denegado por defecto; el banner de cookies actualiza `analytics_storage`.
-- **Eventos al `dataLayer`** (GTM los envía a GA4):
+| Brief | Google Analytics 4 |
+|---|---|
+| Objetivo de negocio | Propiedad **Puma Suede SS28 - Landing** (hora de Chile, CLP) |
+| Meta del sitio | Evento `clic_cta_principal` |
+| KPI | `clic_cta_principal` marcado como **evento clave** y su tasa por sesión |
+| Segmentos | Canal de adquisición, dispositivo y parámetros UTM |
+
+## Implementación
+
+- **Etiqueta de Google (gtag.js):** `G-111X5MEFQZ`, al inicio del `<head>`. Flujo web **Puma Suede SS28 (web)** con medición mejorada activada.
+- **CTA principal:** el botón "Compra tus Suede" (`id="cta-principal"`); sus repeticiones "Viste un ícono" y "Quiero mis Suede" llevan `class="cta-principal"`. El script del evento está antes de `</body>`, después de la etiqueta. Los CTA no salen de la página, así que el evento se envía sin perder la visita.
+- **Parámetro `ubicacion`:** el `id` de la sección del botón (`inicio`, `comprar`, `banda-final`), registrado como dimensión personalizada.
+- **Consent Mode v2:** medición analítica activa salvo que el visitante la rechace; publicidad siempre denegada. No se envían datos personales.
+- **Google Tag Manager (`GTM-K4DSS8Q3`):** instalado pero sin etiqueta de GA4, para no duplicar la medición.
+
+Otros eventos enviados por gtag:
 
 | Evento | Cuándo |
 |---|---|
-| `section_view` | Se ve cada sección (`hero`, `por_que_suede`, `comprar`, `banda_final`) |
+| `section_view` | Se ve cada sección |
 | `view_item` | Se llega a la ficha de compra (ecommerce GA4) |
 | `select_size` | Se elige una talla |
-| `add_to_cart` | Clic en "Compra tus Suede" con talla (ecommerce GA4, CLP) |
+| `add_to_cart` | Compra con talla elegida (ecommerce GA4, CLP) |
 | `size_missing` | Clic en comprar sin talla |
 | `cta_click` | Clic en cualquier CTA o enlace de navegación |
 | `scroll_depth` | 25 / 50 / 75 % de la página |
 | `select_content` | Cambio de foto en la galería |
 | `menu_open` | Apertura del menú |
-| `consent_choice` | Aceptar o rechazar cookies |
-
-Embudo sugerido en GA4: `page_view → section_view (por_que_suede) → view_item → select_size → add_to_cart`.
+| `consent_choice` | Respuesta al banner de cookies |
 
 Para depurar, abre el sitio con `?debug` y revisa la consola o GA4 › DebugView.
 

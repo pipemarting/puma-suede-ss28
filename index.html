@@ -2,29 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- Consent Mode v2: debe ir ANTES de Google Tag Manager.
-     Todo denegado hasta que el visitante decida (Ley 21.719 de protección de datos personales). -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-111X5MEFQZ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
+  function gtag(){dataLayer.push(arguments);}
+  // Consent Mode v2: la medición analítica está activa salvo que el visitante la rechace en el banner.
+  // Publicidad siempre denegada: el sitio no usa cookies publicitarias.
+  var analyticsConsent = 'granted';
+  try { if (localStorage.getItem('suede_consent') === 'denied') analyticsConsent = 'denied'; } catch (e) {}
   gtag('consent', 'default', {
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    functionality_storage: 'granted',
-    security_storage: 'granted',
-    wait_for_update: 500
+    analytics_storage: analyticsConsent
   });
-  try {
-    if (localStorage.getItem('suede_consent') === 'granted') {
-      gtag('consent', 'update', { analytics_storage: 'granted' });
-    }
-  } catch (e) {}
-  // Muestra en consola cada evento enviado al dataLayer (en localhost o con ?debug en la URL).
+  gtag('js', new Date());
+  gtag('config', 'G-111X5MEFQZ');
+  // Muestra cada evento en la consola (en localhost o con ?debug en la URL).
   window.GA_DEBUG = /[?&]debug\b/.test(location.search) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 </script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -531,14 +529,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="top">
 
   <!-- ===== Acto 1 · Héroe ===== -->
-  <section class="hero" aria-labelledby="hero-title" data-section="hero">
+  <section class="hero" id="inicio" aria-labelledby="hero-title" data-section="hero">
     <div class="wrap">
       <div class="hero-copy">
         <p class="eyebrow">Suede Classic XXI · Colección SS28</p>
         <h1 class="display" id="hero-title">Never<span class="not">Not</span>Suede</h1>
         <p class="hero-lede">Desde 1968 en el podio, en la calle y en la pista de baile. La misma silueta de gamuza, ahora en tus pies.</p>
         <div class="hero-ctas">
-          <a class="btn btn--ink" href="#comprar" data-cta="viste_un_icono" data-cta-location="hero">Viste un ícono
+          <a class="btn btn--ink cta-principal" href="#comprar" data-cta="viste_un_icono" data-cta-location="hero">Viste un ícono
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
           <a class="btn btn--ghost" href="#por-que" data-cta="por_que_suede" data-cta-location="hero">¿Por qué Suede?</a>
@@ -673,7 +671,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="size-hint" id="size-hint" aria-live="polite"></p>
         </fieldset>
 
-        <button class="btn btn--red btn--block" id="add-btn">Compra tus Suede
+        <button class="btn btn--red btn--block" id="cta-principal">Compra tus Suede
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
         </button>
 
@@ -686,10 +684,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <section class="final" aria-label="Llamado final" data-section="banda_final">
+  <section class="final" id="banda-final" aria-label="Llamado final" data-section="banda_final">
     <div class="wrap">
       <h2 class="display">Never Not Suede.</h2>
-      <a class="btn" href="#comprar" data-cta="quiero_mis_suede" data-cta-location="banda_final">Quiero mis Suede
+      <a class="btn cta-principal" href="#comprar" data-cta="quiero_mis_suede" data-cta-location="banda_final">Quiero mis Suede
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -723,10 +721,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="consent" id="consent" role="dialog" aria-labelledby="consent-title" hidden>
   <h2 id="consent-title">Cookies de medición</h2>
-  <p>Usamos Google Analytics para entender cómo se usa esta página y mejorarla. No usamos cookies publicitarias. Puedes cambiar tu decisión cuando quieras.</p>
+  <p>Usamos Google Analytics para entender cómo se usa esta página y mejorarla. No usamos cookies publicitarias ni pedimos datos personales. Puedes rechazar la medición cuando quieras.</p>
   <div class="consent-actions">
-    <button class="btn btn--ink" id="consent-accept">Aceptar</button>
-    <button class="btn btn--ghost" id="consent-reject">Solo esenciales</button>
+    <button class="btn btn--ink" id="consent-accept">Entendido</button>
+    <button class="btn btn--ghost" id="consent-reject">Rechazar medición</button>
   </div>
 </div>
 
@@ -750,17 +748,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     price: 69990,
     quantity: 1
   };
-  // Empuja eventos al dataLayer; GTM los reenvía a GA4.
-  // Los eventos de ecommerce van con el objeto "ecommerce" estándar de GA4.
-  const ECOMMERCE_EVENTS = ['view_item', 'add_to_cart'];
+  // Envía eventos a GA4 con gtag (los de ecommerce llevan currency, value e items).
   const track = (name, params = {}) => {
-    if (ECOMMERCE_EVENTS.includes(name)) {
-      dataLayer.push({ ecommerce: null });
-      dataLayer.push({ event: name, ecommerce: params });
-    } else {
-      dataLayer.push({ event: name, ...params });
-    }
-    if (window.GA_DEBUG) console.info('[dataLayer]', name, params);
+    gtag('event', name, params);
+    if (window.GA_DEBUG) console.info('[GA4]', name, params);
   };
 
   // Consentimiento
@@ -866,7 +857,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const cartBtn = document.getElementById('cart-btn');
   const toast = document.getElementById('toast');
   let toastTimer;
-  document.getElementById('add-btn').addEventListener('click', () => {
+  document.getElementById('cta-principal').addEventListener('click', () => {
     if (!size) {
       hint.textContent = 'Elige tu talla para continuar.';
       track('size_missing', { item_id: PRODUCT.item_id });
@@ -889,6 +880,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
   });
 })();
+</script>
+<script>
+  // Envía el evento clic_cta_principal cuando el visitante hace clic en el CTA
+  document.querySelectorAll('#cta-principal, .cta-principal').forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      var seccion = boton.closest('section');
+      gtag('event', 'clic_cta_principal', {
+        ubicacion: seccion && seccion.id ? seccion.id : 'sin_seccion'
+      });
+    });
+  });
 </script>
 </body>
 </html>
